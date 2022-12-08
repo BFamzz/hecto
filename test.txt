@@ -1,0 +1,6 @@
+This is a new file.
+For testing hecto
+Let's go.
+A new line has been added.
+This is a 123 one two three number that ends with 0 zero
+Next this is a character test 'c' and an escape character test '\''
