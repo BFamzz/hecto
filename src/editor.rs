@@ -140,7 +140,7 @@ impl Editor {
                     self.move_cursor(Key::Left);
                     self.document.delete(&self.cursor_position);
                 }
-            }
+            },
             Key::Up 
                 | Key::Down 
                 | Key::Left
@@ -179,7 +179,7 @@ impl Editor {
         let old_position = self.cursor_position.clone();
         let mut direction = SearchDirection::Forward;
         let query = self
-            .prompt("Search (ESC to cancel, Arrows to navigate):", 
+            .prompt("Search (ESC to cancel, Arrows to navigate): ", 
                 |editor, key, query| {
                     let mut moved = false;
                     match key {
@@ -207,8 +207,8 @@ impl Editor {
         if query.is_none() {
             self.cursor_position = old_position;
             self.scroll();
-            self.highlighted_word = None;
         }
+        self.highlighted_word = None;
     }
 
     fn prompt<C>(&mut self, prompt: &str, mut callback: C) -> Result<Option<String>, std::io::Error>
@@ -219,12 +219,6 @@ impl Editor {
         loop {
             self.status_message = StatusMessage::from(format!("{}{}", prompt, result));
             self.refresh_screen()?;
-            if let Key::Char(c) = Terminal::read_key()? {
-                if c == '\n' {
-                    self.status_message = StatusMessage::from(String::new());
-                    break;
-                }
-            }
             let key = Terminal::read_key()?;
             match key {
                 Key::Backspace => result.truncate(result.len().saturating_sub(1)),
